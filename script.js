@@ -2,8 +2,7 @@ let firstOperand = "";
 let secondOperand = "";
 let operator = "";
 
-let shouldClear = false;
-let shouldEvaluate = false;
+let shouldClear = true;
 
 const display = document.querySelector(".main-display");
 const subDisplay = document.querySelector(".sub-display");
@@ -13,6 +12,9 @@ const addBtn = document.querySelector(".add");
 const subtractBtn = document.querySelector(".subtract");
 const multiplyBtn = document.querySelector(".multiply");
 const divideBtn = document.querySelector(".divide");
+
+const clearBtn = document.querySelector(".clear");
+const equalsBtn = document.querySelector(".equals");
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -49,8 +51,11 @@ function populate(e) {
   display.textContent += value;
 }
 
-function storeValue(e) {
-  if (operator !== "") {
+function evaluate(e) {
+  if (
+    operator !== "" &&
+    display.textContent !== subDisplay.textContent.split(" ")[0]
+  ) {
     secondOperand = Number(display.textContent);
     const result = operate(operator, firstOperand, secondOperand);
 
@@ -58,7 +63,9 @@ function storeValue(e) {
     secondOperand = "";
 
     subDisplay.textContent = result + " " + e.target.textContent;
+    display.textContent = result;
     shouldClear = true;
+    operator = e.target.classList.value;
   } else {
     operator = e.target.classList.value;
     firstOperand = Number(display.textContent);
@@ -68,5 +75,34 @@ function storeValue(e) {
   }
 }
 
+function evaluateEqual(e) {
+  secondOperand = Number(display.textContent);
+  console.log(secondOperand);
+  if (!(operator && firstOperand && secondOperand)) return;
+
+  const result = operate(operator, firstOperand, secondOperand);
+  firstOperand = result;
+  secondOperand = "";
+
+  subDisplay.textContent = result;
+  display.textContent = result;
+  shouldClear = true;
+  operator = "";
+}
+
+function reset() {
+  shouldClear = true;
+  display.textContent = 0;
+  firstOperand = "";
+  secondOperand = "";
+  subDisplay.textContent = "";
+}
+
 numbersBtn.forEach((btn) => btn.addEventListener("click", populate));
-addBtn.addEventListener("click", storeValue);
+addBtn.addEventListener("click", evaluate);
+subtractBtn.addEventListener("click", evaluate);
+multiplyBtn.addEventListener("click", evaluate);
+divideBtn.addEventListener("click", evaluate);
+
+clearBtn.addEventListener("click", reset);
+equalsBtn.addEventListener("click", evaluateEqual);
