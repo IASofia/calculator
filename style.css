@@ -18,6 +18,12 @@
   height: 80px;
   background: #444;
   border: 1px solid black;
+  color: #fff;
+  font-size: 24px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .number,
