@@ -62,8 +62,12 @@ function evaluate(e) {
     firstOperand = result;
     secondOperand = "";
 
-    subDisplay.textContent = result + " " + e.target.textContent;
-    display.textContent = result;
+    subDisplay.textContent =
+      result === Math.round(result)
+        ? result
+        : result.toFixed(6) + " " + e.target.textContent;
+    display.textContent =
+      result === Math.round(result) ? result : result.toFixed(6);
     shouldClear = true;
     operator = e.target.classList.value;
   } else {
@@ -84,8 +88,10 @@ function evaluateEqual(e) {
   firstOperand = result;
   secondOperand = "";
 
-  subDisplay.textContent = result;
-  display.textContent = result;
+  subDisplay.textContent =
+    result === Math.round(result) ? result : result.toFixed(6);
+  display.textContent =
+    result === Math.round(result) ? result : result.toFixed(6);
   shouldClear = true;
   operator = "";
 }
@@ -95,6 +101,7 @@ function reset() {
   display.textContent = 0;
   firstOperand = "";
   secondOperand = "";
+  operator = "";
   subDisplay.textContent = "";
 }
 
