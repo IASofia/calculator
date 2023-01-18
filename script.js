@@ -22,8 +22,10 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 function operate(operator, firstOperand, secondOperand) {
-  if (operator === "divide" && secondOperand === 0)
-    return "Error, cannot divide by 0!";
+  console.log(operator, firstOperand, secondOperand);
+  if (operator === "divide" && secondOperand === 0) {
+    setTimeout(reset, 1000);
+  }
 
   switch (operator) {
     case "add":
@@ -81,8 +83,7 @@ function evaluate(e) {
 
 function evaluateEqual(e) {
   secondOperand = Number(display.textContent);
-  console.log(secondOperand);
-  if (!(operator && firstOperand && secondOperand)) return;
+  if (!(operator && firstOperand)) return;
 
   const result = operate(operator, firstOperand, secondOperand);
   firstOperand = result;
