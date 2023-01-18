@@ -13,19 +13,6 @@
   border-radius: 4px;
 }
 
-.display {
-  width: 100%;
-  height: 80px;
-  background: #444;
-  border: 1px solid black;
-  color: #fff;
-  font-size: 24px;
-  padding: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
 .number,
 .add,
 .divide,
@@ -117,4 +104,30 @@
 
 .clear {
   grid-row: 4;
+}
+
+.display {
+  border: 1px solid black;
+  padding: 10px;
+  background-color: #444;
+}
+
+.main-display,
+.sub-display {
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.main-display {
+  height: 50px;
+  width: 100%;
+  font-size: 28px;
+}
+
+.sub-display {
+  height: 30px;
+  width: 100%;
+  font-size: 18px;
 }

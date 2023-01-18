@@ -2,7 +2,11 @@ let firstOperand = "";
 let secondOperand = "";
 let operator = "";
 
-const display = document.querySelector(".display");
+let shouldClear = false;
+let shouldEvaluate = false;
+
+const display = document.querySelector(".main-display");
+const subDisplay = document.querySelector(".sub-display");
 
 const numbersBtn = document.querySelectorAll(".number");
 const addBtn = document.querySelector(".add");
@@ -21,27 +25,48 @@ function operate(operator, firstOperand, secondOperand) {
 
   switch (operator) {
     case "add":
-      add(firstOperand, secondOperand);
-      break;
+      return add(firstOperand, secondOperand);
     case "subtract":
-      subtract(firstOperand, secondOperand);
-      break;
+      return subtract(firstOperand, secondOperand);
     case "multiply":
-      multiply(firstOperand, secondOperand);
-      break;
+      return multiply(firstOperand, secondOperand);
     case "divide":
-      divide(firstOperand, secondOperand);
-      break;
+      return divide(firstOperand, secondOperand);
     default:
       return "Operator not found";
   }
 }
 
+function clearDisplay() {
+  display.textContent = "";
+  shouldClear = false;
+}
+
 function populate(e) {
   const value = e.target.textContent;
-  firstOperand += value;
+  if (shouldClear) clearDisplay();
 
   display.textContent += value;
 }
 
+function storeValue(e) {
+  if (operator !== "") {
+    secondOperand = Number(display.textContent);
+    const result = operate(operator, firstOperand, secondOperand);
+
+    firstOperand = result;
+    secondOperand = "";
+
+    subDisplay.textContent = result + " " + e.target.textContent;
+    shouldClear = true;
+  } else {
+    operator = e.target.classList.value;
+    firstOperand = Number(display.textContent);
+
+    subDisplay.textContent = firstOperand + " " + e.target.textContent;
+    shouldClear = true;
+  }
+}
+
 numbersBtn.forEach((btn) => btn.addEventListener("click", populate));
+addBtn.addEventListener("click", storeValue);
